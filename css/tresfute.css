@@ -1,0 +1,28 @@
+.de {
+    width: 80px;
+}
+.des {
+    width: 480px;
+    height: 82px;
+    border: 1px solid;
+    padding-top: 3px;
+    padding-left: 3px;
+}
+.feuille {
+    width: 535px;
+    height: 760px;
+    background-image: url('../img/tresfute.jpg');
+}
+.feuille .des {
+    width: 82px;
+    height: 240px;
+    border: 5px solid;
+}
+.choisis {
+    position: absolute;
+    top: 97px;
+    left: 13px;
+    width: 80px;
+    height: 240px;
+    border: 10px red;
+}
