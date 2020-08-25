@@ -74,12 +74,22 @@
     float: right;
 /*    background: rgb(255,255,128,.5);*/
 }
+.feuille .bleu .coches {
+    width: 184px;
+    margin-top: 60px;
+    margin-left: 12px;
+    /*background: rgb(255,255,128,.5);*/
+}
 .feuille .vert {
 /*    background: rgb(128,255,255,.5);*/
     width: 526px;
     height: 96px;
     margin-left: 6px;
     float: left;
+}
+.feuille .vert .coches {
+	margin-top: 23px;
+	margin-left: 61px;
 }
 .feuille .orange {
     float: left;
@@ -88,6 +98,10 @@
 /*  background: rgb(128,255,255,.5);*/
     margin-left: 6px;
 }
+.feuille .orange .coches {
+	margin-top: 2px;
+	margin-left: 61px;
+}
 .feuille .violet {
     float: left;
     width: 526px;
@@ -95,7 +109,29 @@
 /*  background: rgb(128,255,255,.5);*/
     margin-left: 6px;
 }
-.coche {
+.feuille .violet .coches {
+    margin-top: 2px;
+    margin-left: 61px;
+}
+.feuille .coche {
+    /*background: rgba(255, 128, 255, 0.5);*/
+    width: 35px;
+    height: 40px;
+    padding-left: 6px;
+    display: inline-block;
+    margin-left: -0.25px;
+    margin-top: 3px;
+}
+.feuille .jaune .coche {
+    /*background: rgba(255, 128, 255, 0.5);*/
+    width: 35px;
+    height: 40px;
+    padding-left: 6px;
+    display: inline-block;
+    margin-left: 4px;
+    margin-top: 3px;
+}
+.feuille .bleu .coche { /* copie du .jaune */
     /*background: rgba(255, 128, 255, 0.5);*/
     width: 35px;
     height: 40px;

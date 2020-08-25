@@ -66,19 +66,19 @@ renderOnSilk: aSilk
 	TFWZone new divOn: elt with: 'tours'.
 	elt DIV: { 'class'->'relance' }.
 	elt DIV: { 'class'->'plusun' }.
-	self zone: #jaune avec: 16.
-	elt DIV: { 'class'->'bleu' }.
-	elt DIV: { 'class'->'vert' }.
-	elt DIV: { 'class'->'orange' }.
-	elt DIV: { 'class'->'violet' }
+	self zone: #jaune.
+	self zone: #bleu.
+	self zone: #vert.
+	self zone: #orange.
+	self zone: #violet
 !
 
-zone: type avec: nbCoches
+zone: type
 	| zone |
 	zone := TFWZone new
-		type: #jaune ;
-		zone: (feuille zone: type);
-		divOn: elt coches: 16.
+		type: type;
+		zone: (feuille zone: type).
+	elt << zone.
 	"retransmet l'annonce des cochages"
 	zone annonceur on: TFWEvtCoche do: [ :evt |
 		self annonce: evt
@@ -170,11 +170,15 @@ actualise
 		]
 !
 
-divOn: aSilk coches: n
+initialize
+	coches := Array new
+!
+
+renderOnSilk: aSilk
 	| eltcoches coche |
 	self divOn: aSilk with: type.
 	eltcoches := elt DIV: { 'class'->'coches' }.
-	1 to: n do: [ :i |
+	1 to: (zone nbCoches) do: [ :i |
 		coche := eltcoches DIV: { 'class'->'coche' }.
 		coches add: coche.
 		coche on: #click
@@ -182,10 +186,6 @@ divOn: aSilk coches: n
 				  self annonce: (TFWEvtCoche new: type sur: i)
 			      ]
 		]
-!
-
-initialize
-	coches := Array new
 !
 
 type: aType

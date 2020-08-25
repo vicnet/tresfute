@@ -739,6 +739,29 @@ $globals.TFZone);
 
 $core.addMethod(
 $core.method({
+selector: "nbCoches",
+protocol: "as yet unclassified",
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "nbCoches\x0a\x09^ coches size",
+referencedClasses: [],
+//>>excludeEnd("ide");
+pragmas: [],
+messageSends: ["size"]
+}, function ($methodClass){ return function (){
+var self=this,$self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+return $recv($self.coches)._size();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"nbCoches",{})});
+//>>excludeEnd("ctx");
+}; }),
+$globals.TFZone);
+
+$core.addMethod(
+$core.method({
 selector: "nbCoches:",
 protocol: "as yet unclassified",
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -866,7 +889,7 @@ selector: "initialize",
 protocol: "initialization",
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "initialize\x0a\x09choisis := TFSetDes new.\x0a\x09zones := Dictionary new.\x0a\x09zones at: #jaune put: (TFZone new nbCoches: 16)",
+source: "initialize\x0a\x09choisis := TFSetDes new.\x0a\x09zones := Dictionary new.\x0a\x09zones at: #jaune put: (TFZone new nbCoches: 16).\x0a\x09zones at: #bleu put: (TFZone new nbCoches: 12).\x0a\x09zones at: #vert put: (TFZone new nbCoches: 11).\x0a\x09zones at: #orange put: (TFZone new nbCoches: 11).\x0a\x09zones at: #violet put: (TFZone new nbCoches: 11)",
 referencedClasses: ["TFSetDes", "Dictionary", "TFZone"],
 //>>excludeEnd("ide");
 pragmas: [],
@@ -886,7 +909,59 @@ $self.zones=[$recv($globals.Dictionary)._new()
 ,$ctx1.sendIdx["new"]=2
 //>>excludeEnd("ctx");
 ][0];
-$recv($self.zones)._at_put_("jaune",$recv($recv($globals.TFZone)._new())._nbCoches_((16)));
+[$recv($self.zones)._at_put_("jaune",[$recv([$recv($globals.TFZone)._new()
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+,$ctx1.sendIdx["new"]=3
+//>>excludeEnd("ctx");
+][0])._nbCoches_((16))
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+,$ctx1.sendIdx["nbCoches:"]=1
+//>>excludeEnd("ctx");
+][0])
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+,$ctx1.sendIdx["at:put:"]=1
+//>>excludeEnd("ctx");
+][0];
+[$recv($self.zones)._at_put_("bleu",[$recv([$recv($globals.TFZone)._new()
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+,$ctx1.sendIdx["new"]=4
+//>>excludeEnd("ctx");
+][0])._nbCoches_((12))
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+,$ctx1.sendIdx["nbCoches:"]=2
+//>>excludeEnd("ctx");
+][0])
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+,$ctx1.sendIdx["at:put:"]=2
+//>>excludeEnd("ctx");
+][0];
+[$recv($self.zones)._at_put_("vert",[$recv([$recv($globals.TFZone)._new()
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+,$ctx1.sendIdx["new"]=5
+//>>excludeEnd("ctx");
+][0])._nbCoches_((11))
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+,$ctx1.sendIdx["nbCoches:"]=3
+//>>excludeEnd("ctx");
+][0])
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+,$ctx1.sendIdx["at:put:"]=3
+//>>excludeEnd("ctx");
+][0];
+[$recv($self.zones)._at_put_("orange",[$recv([$recv($globals.TFZone)._new()
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+,$ctx1.sendIdx["new"]=6
+//>>excludeEnd("ctx");
+][0])._nbCoches_((11))
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+,$ctx1.sendIdx["nbCoches:"]=4
+//>>excludeEnd("ctx");
+][0])
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+,$ctx1.sendIdx["at:put:"]=4
+//>>excludeEnd("ctx");
+][0];
+$recv($self.zones)._at_put_("violet",$recv($recv($globals.TFZone)._new())._nbCoches_((11)));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"initialize",{})});

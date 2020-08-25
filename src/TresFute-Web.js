@@ -211,11 +211,11 @@ selector: "renderOnSilk:",
 protocol: "as yet unclassified",
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aSilk"],
-source: "renderOnSilk: aSilk\x0a\x09self divOn: aSilk with: 'feuille'.\x0a\x0a\x09choisis := TFWSetDes new: feuille choisis.\x0a\x09elt << choisis.\x0a\x09\x22other parts\x22\x0a\x09TFWZone new divOn: elt with: 'tours'.\x0a\x09elt DIV: { 'class'->'relance' }.\x0a\x09elt DIV: { 'class'->'plusun' }.\x0a\x09self zone: #jaune avec: 16.\x0a\x09elt DIV: { 'class'->'bleu' }.\x0a\x09elt DIV: { 'class'->'vert' }.\x0a\x09elt DIV: { 'class'->'orange' }.\x0a\x09elt DIV: { 'class'->'violet' }",
+source: "renderOnSilk: aSilk\x0a\x09self divOn: aSilk with: 'feuille'.\x0a\x0a\x09choisis := TFWSetDes new: feuille choisis.\x0a\x09elt << choisis.\x0a\x09\x22other parts\x22\x0a\x09TFWZone new divOn: elt with: 'tours'.\x0a\x09elt DIV: { 'class'->'relance' }.\x0a\x09elt DIV: { 'class'->'plusun' }.\x0a\x09self zone: #jaune.\x0a\x09self zone: #bleu.\x0a\x09self zone: #vert.\x0a\x09self zone: #orange.\x0a\x09self zone: #violet",
 referencedClasses: ["TFWSetDes", "TFWZone"],
 //>>excludeEnd("ide");
 pragmas: [],
-messageSends: ["divOn:with:", "new:", "choisis", "<<", "new", "DIV:", "->", "zone:avec:"]
+messageSends: ["divOn:with:", "new:", "choisis", "<<", "new", "DIV:", "->", "zone:"]
 }, function ($methodClass){ return function (aSilk){
 var self=this,$self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -238,44 +238,28 @@ $recv($recv($globals.TFWZone)._new())._divOn_with_($self.elt,"tours");
 ,$ctx1.sendIdx["DIV:"]=1
 //>>excludeEnd("ctx");
 ][0];
-[$recv($self.elt)._DIV_([["class".__minus_gt("plusun")
+$recv($self.elt)._DIV_(["class".__minus_gt("plusun")]);
+[$self._zone_("jaune")
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-,$ctx1.sendIdx["->"]=2
-//>>excludeEnd("ctx");
-][0]])
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-,$ctx1.sendIdx["DIV:"]=2
+,$ctx1.sendIdx["zone:"]=1
 //>>excludeEnd("ctx");
 ][0];
-$self._zone_avec_("jaune",(16));
-[$recv($self.elt)._DIV_([["class".__minus_gt("bleu")
+[$self._zone_("bleu")
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-,$ctx1.sendIdx["->"]=3
-//>>excludeEnd("ctx");
-][0]])
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-,$ctx1.sendIdx["DIV:"]=3
+,$ctx1.sendIdx["zone:"]=2
 //>>excludeEnd("ctx");
 ][0];
-[$recv($self.elt)._DIV_([["class".__minus_gt("vert")
+[$self._zone_("vert")
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-,$ctx1.sendIdx["->"]=4
-//>>excludeEnd("ctx");
-][0]])
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-,$ctx1.sendIdx["DIV:"]=4
+,$ctx1.sendIdx["zone:"]=3
 //>>excludeEnd("ctx");
 ][0];
-[$recv($self.elt)._DIV_([["class".__minus_gt("orange")
+[$self._zone_("orange")
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-,$ctx1.sendIdx["->"]=5
-//>>excludeEnd("ctx");
-][0]])
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-,$ctx1.sendIdx["DIV:"]=5
+,$ctx1.sendIdx["zone:"]=4
 //>>excludeEnd("ctx");
 ][0];
-$recv($self.elt)._DIV_(["class".__minus_gt("violet")]);
+$self._zone_("violet");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"renderOnSilk:",{aSilk:aSilk})});
@@ -285,16 +269,16 @@ $globals.TFWFeuille);
 
 $core.addMethod(
 $core.method({
-selector: "zone:avec:",
+selector: "zone:",
 protocol: "as yet unclassified",
 //>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["type", "nbCoches"],
-source: "zone: type avec: nbCoches\x0a\x09| zone |\x0a\x09zone := TFWZone new\x0a\x09\x09type: #jaune ;\x0a\x09\x09zone: (feuille zone: type);\x0a\x09\x09divOn: elt coches: 16.\x0a\x09\x22retransmet l'annonce des cochages\x22\x0a\x09zone annonceur on: TFWEvtCoche do: [ :evt |\x0a\x09\x09self annonce: evt\x0a\x09\x09]",
+args: ["type"],
+source: "zone: type\x0a\x09| zone |\x0a\x09zone := TFWZone new\x0a\x09\x09type: type;\x0a\x09\x09zone: (feuille zone: type).\x0a\x09elt << zone.\x0a\x09\x22retransmet l'annonce des cochages\x22\x0a\x09zone annonceur on: TFWEvtCoche do: [ :evt |\x0a\x09\x09self annonce: evt\x0a\x09\x09]",
 referencedClasses: ["TFWZone", "TFWEvtCoche"],
 //>>excludeEnd("ide");
 pragmas: [],
-messageSends: ["type:", "new", "zone:", "divOn:coches:", "on:do:", "annonceur", "annonce:"]
-}, function ($methodClass){ return function (type,nbCoches){
+messageSends: ["type:", "new", "zone:", "<<", "on:do:", "annonceur", "annonce:"]
+}, function ($methodClass){ return function (type){
 var self=this,$self=this;
 var zone;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -302,13 +286,13 @@ return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=$recv($globals.TFWZone)._new();
-$recv($1)._type_("jaune");
-[$recv($1)._zone_($recv($self.feuille)._zone_(type))
+$recv($1)._type_(type);
+zone=[$recv($1)._zone_($recv($self.feuille)._zone_(type))
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 ,$ctx1.sendIdx["zone:"]=1
 //>>excludeEnd("ctx");
 ][0];
-zone=$recv($1)._divOn_coches_($self.elt,(16));
+$recv($self.elt).__lt_lt(zone);
 $recv($recv(zone)._annonceur())._on_do_($globals.TFWEvtCoche,(function(evt){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
@@ -320,7 +304,7 @@ return $self._annonce_(evt);
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"zone:avec:",{type:type,nbCoches:nbCoches,zone:zone})});
+}, function($ctx1) {$ctx1.fill(self,"zone:",{type:type,zone:zone})});
 //>>excludeEnd("ctx");
 }; }),
 $globals.TFWFeuille);
@@ -600,16 +584,40 @@ $globals.TFWZone);
 
 $core.addMethod(
 $core.method({
-selector: "divOn:coches:",
+selector: "initialize",
 protocol: "as yet unclassified",
 //>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aSilk", "n"],
-source: "divOn: aSilk coches: n\x0a\x09| eltcoches coche |\x0a\x09self divOn: aSilk with: type.\x0a\x09eltcoches := elt DIV: { 'class'->'coches' }.\x0a\x091 to: n do: [ :i |\x0a\x09\x09coche := eltcoches DIV: { 'class'->'coche' }.\x0a\x09\x09coches add: coche.\x0a\x09\x09coche on: #click\x0a\x09\x09\x09  bind: [\x0a\x09\x09\x09\x09  self annonce: (TFWEvtCoche new: type sur: i)\x0a\x09\x09\x09      ]\x0a\x09\x09]",
+args: [],
+source: "initialize\x0a\x09coches := Array new",
+referencedClasses: ["Array"],
+//>>excludeEnd("ide");
+pragmas: [],
+messageSends: ["new"]
+}, function ($methodClass){ return function (){
+var self=this,$self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$self.coches=$recv($globals.Array)._new();
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"initialize",{})});
+//>>excludeEnd("ctx");
+}; }),
+$globals.TFWZone);
+
+$core.addMethod(
+$core.method({
+selector: "renderOnSilk:",
+protocol: "as yet unclassified",
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aSilk"],
+source: "renderOnSilk: aSilk\x0a\x09| eltcoches coche |\x0a\x09self divOn: aSilk with: type.\x0a\x09eltcoches := elt DIV: { 'class'->'coches' }.\x0a\x091 to: (zone nbCoches) do: [ :i |\x0a\x09\x09coche := eltcoches DIV: { 'class'->'coche' }.\x0a\x09\x09coches add: coche.\x0a\x09\x09coche on: #click\x0a\x09\x09\x09  bind: [\x0a\x09\x09\x09\x09  self annonce: (TFWEvtCoche new: type sur: i)\x0a\x09\x09\x09      ]\x0a\x09\x09]",
 referencedClasses: ["TFWEvtCoche"],
 //>>excludeEnd("ide");
 pragmas: [],
-messageSends: ["divOn:with:", "DIV:", "->", "to:do:", "add:", "on:bind:", "annonce:", "new:sur:"]
-}, function ($methodClass){ return function (aSilk,n){
+messageSends: ["divOn:with:", "DIV:", "->", "to:do:", "nbCoches", "add:", "on:bind:", "annonce:", "new:sur:"]
+}, function ($methodClass){ return function (aSilk){
 var self=this,$self=this;
 var eltcoches,coche;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -625,7 +633,7 @@ eltcoches=[$recv($self.elt)._DIV_([["class".__minus_gt("coches")
 ,$ctx1.sendIdx["DIV:"]=1
 //>>excludeEnd("ctx");
 ][0];
-(1)._to_do_(n,(function(i){
+(1)._to_do_($recv($self.zone)._nbCoches(),(function(i){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
@@ -646,31 +654,7 @@ return $self._annonce_($recv($globals.TFWEvtCoche)._new_sur_($self.type,i));
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"divOn:coches:",{aSilk:aSilk,n:n,eltcoches:eltcoches,coche:coche})});
-//>>excludeEnd("ctx");
-}; }),
-$globals.TFWZone);
-
-$core.addMethod(
-$core.method({
-selector: "initialize",
-protocol: "as yet unclassified",
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "initialize\x0a\x09coches := Array new",
-referencedClasses: ["Array"],
-//>>excludeEnd("ide");
-pragmas: [],
-messageSends: ["new"]
-}, function ($methodClass){ return function (){
-var self=this,$self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-$self.coches=$recv($globals.Array)._new();
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"initialize",{})});
+}, function($ctx1) {$ctx1.fill(self,"renderOnSilk:",{aSilk:aSilk,eltcoches:eltcoches,coche:coche})});
 //>>excludeEnd("ctx");
 }; }),
 $globals.TFWZone);

@@ -172,6 +172,10 @@ coche: pos
 	self annonce
 !
 
+nbCoches
+	^ coches size
+!
+
 nbCoches: nb
 	coches := (1 to: nb) collect: [ false ]
 ! !
@@ -209,7 +213,11 @@ choisit: couleur en: pos
 initialize
 	choisis := TFSetDes new.
 	zones := Dictionary new.
-	zones at: #jaune put: (TFZone new nbCoches: 16)
+	zones at: #jaune put: (TFZone new nbCoches: 16).
+	zones at: #bleu put: (TFZone new nbCoches: 12).
+	zones at: #vert put: (TFZone new nbCoches: 11).
+	zones at: #orange put: (TFZone new nbCoches: 11).
+	zones at: #violet put: (TFZone new nbCoches: 11)
 !
 
 zone: type
