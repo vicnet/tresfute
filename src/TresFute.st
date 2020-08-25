@@ -11,7 +11,7 @@ annonce
 !
 
 annonce: evt
-	annonceur announce: evt
+	(self annonceur) announce: evt
 !
 
 annonceur
@@ -157,8 +157,37 @@ printOn: aStream
 	aStream nextPutAll: ')'
 ! !
 
+TFAnnonceur subclass: #TFZone
+	slots: {#coches}
+	package: 'TresFute'!
+
+!TFZone methodsFor: 'as yet unclassified'!
+
+at: pos
+	^ coches at: pos
+!
+
+coche: pos
+	coches at: pos put: true.
+	self annonce
+!
+
+nbCoches: nb
+	coches := (1 to: nb) collect: [ false ]
+! !
+
+!TFZone class methodsFor: 'as yet unclassified'!
+
+new: nb
+	^ TFZone new nbCoches: nb
+! !
+
+Object subclass: #TFEvenement
+	slots: {}
+	package: 'TresFute'!
+
 Object subclass: #TFFeuille
-	slots: {#choisis}
+	slots: {#choisis. #zones}
 	package: 'TresFute'!
 
 !TFFeuille methodsFor: 'actions'!
@@ -173,8 +202,18 @@ choisis
 	^ choisis
 !
 
+choisit: couleur en: pos
+	(zones at: couleur) coche: pos
+!
+
 initialize
-	choisis := TFSetDes new
+	choisis := TFSetDes new.
+	zones := Dictionary new.
+	zones at: #jaune put: (TFZone new nbCoches: 16)
+!
+
+zone: type
+	^ zones at: type
 ! !
 
 Object subclass: #TFJeu
@@ -196,6 +235,12 @@ plateau
 ! !
 
 !TFJeu methodsFor: 'actions'!
+
+choisit: couleur en: pos
+	feuille choisit: couleur en: pos.
+	"nouveau lancer"
+	des lance
+!
 
 choisitDe: index
 	| de infs |
@@ -224,6 +269,7 @@ Object subclass: #TresFute
 !TresFute methodsFor: 'as yet unclassified'!
 
 start
+	TFWJeu new
 ! !
 
 !TresFute class methodsFor: 'as yet unclassified'!

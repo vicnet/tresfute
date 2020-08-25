@@ -39,17 +39,17 @@ selector: "annonce:",
 protocol: "annoncement",
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["evt"],
-source: "annonce: evt\x0a\x09annonceur announce: evt",
+source: "annonce: evt\x0a\x09(self annonceur) announce: evt",
 referencedClasses: [],
 //>>excludeEnd("ide");
 pragmas: [],
-messageSends: ["announce:"]
+messageSends: ["announce:", "annonceur"]
 }, function ($methodClass){ return function (evt){
 var self=this,$self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-$recv($self.annonceur)._announce_(evt);
+$recv($self._annonceur())._announce_(evt);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"annonce:",{evt:evt})});
@@ -687,8 +687,113 @@ $globals.TFSetDes);
 
 
 
+$core.addClass("TFZone", $globals.TFAnnonceur, "TresFute");
+$core.setSlots($globals.TFZone, ["coches"]);
+$core.addMethod(
+$core.method({
+selector: "at:",
+protocol: "as yet unclassified",
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["pos"],
+source: "at: pos\x0a\x09^ coches at: pos",
+referencedClasses: [],
+//>>excludeEnd("ide");
+pragmas: [],
+messageSends: ["at:"]
+}, function ($methodClass){ return function (pos){
+var self=this,$self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+return $recv($self.coches)._at_(pos);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"at:",{pos:pos})});
+//>>excludeEnd("ctx");
+}; }),
+$globals.TFZone);
+
+$core.addMethod(
+$core.method({
+selector: "coche:",
+protocol: "as yet unclassified",
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["pos"],
+source: "coche: pos\x0a\x09coches at: pos put: true.\x0a\x09self annonce",
+referencedClasses: [],
+//>>excludeEnd("ide");
+pragmas: [],
+messageSends: ["at:put:", "annonce"]
+}, function ($methodClass){ return function (pos){
+var self=this,$self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$recv($self.coches)._at_put_(pos,true);
+$self._annonce();
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"coche:",{pos:pos})});
+//>>excludeEnd("ctx");
+}; }),
+$globals.TFZone);
+
+$core.addMethod(
+$core.method({
+selector: "nbCoches:",
+protocol: "as yet unclassified",
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["nb"],
+source: "nbCoches: nb\x0a\x09coches := (1 to: nb) collect: [ false ]",
+referencedClasses: [],
+//>>excludeEnd("ide");
+pragmas: [],
+messageSends: ["collect:", "to:"]
+}, function ($methodClass){ return function (nb){
+var self=this,$self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$self.coches=$recv((1)._to_(nb))._collect_((function(){
+return false;
+
+}));
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"nbCoches:",{nb:nb})});
+//>>excludeEnd("ctx");
+}; }),
+$globals.TFZone);
+
+
+$core.addMethod(
+$core.method({
+selector: "new:",
+protocol: "as yet unclassified",
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["nb"],
+source: "new: nb\x0a\x09^ TFZone new nbCoches: nb",
+referencedClasses: ["TFZone"],
+//>>excludeEnd("ide");
+pragmas: [],
+messageSends: ["nbCoches:", "new"]
+}, function ($methodClass){ return function (nb){
+var self=this,$self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+return $recv($recv($globals.TFZone)._new())._nbCoches_(nb);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"new:",{nb:nb})});
+//>>excludeEnd("ctx");
+}; }),
+$globals.TFZone.a$cls);
+
+
+$core.addClass("TFEvenement", $globals.Object, "TresFute");
+
+
 $core.addClass("TFFeuille", $globals.Object, "TresFute");
-$core.setSlots($globals.TFFeuille, ["choisis"]);
+$core.setSlots($globals.TFFeuille, ["choisis", "zones"]);
 $core.addMethod(
 $core.method({
 selector: "ajoute:",
@@ -733,24 +838,81 @@ $globals.TFFeuille);
 
 $core.addMethod(
 $core.method({
+selector: "choisit:en:",
+protocol: "initialization",
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["couleur", "pos"],
+source: "choisit: couleur en: pos\x0a\x09(zones at: couleur) coche: pos",
+referencedClasses: [],
+//>>excludeEnd("ide");
+pragmas: [],
+messageSends: ["coche:", "at:"]
+}, function ($methodClass){ return function (couleur,pos){
+var self=this,$self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$recv($recv($self.zones)._at_(couleur))._coche_(pos);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"choisit:en:",{couleur:couleur,pos:pos})});
+//>>excludeEnd("ctx");
+}; }),
+$globals.TFFeuille);
+
+$core.addMethod(
+$core.method({
 selector: "initialize",
 protocol: "initialization",
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "initialize\x0a\x09choisis := TFSetDes new",
-referencedClasses: ["TFSetDes"],
+source: "initialize\x0a\x09choisis := TFSetDes new.\x0a\x09zones := Dictionary new.\x0a\x09zones at: #jaune put: (TFZone new nbCoches: 16)",
+referencedClasses: ["TFSetDes", "Dictionary", "TFZone"],
 //>>excludeEnd("ide");
 pragmas: [],
-messageSends: ["new"]
+messageSends: ["new", "at:put:", "nbCoches:"]
 }, function ($methodClass){ return function (){
 var self=this,$self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-$self.choisis=$recv($globals.TFSetDes)._new();
+$self.choisis=[$recv($globals.TFSetDes)._new()
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+,$ctx1.sendIdx["new"]=1
+//>>excludeEnd("ctx");
+][0];
+$self.zones=[$recv($globals.Dictionary)._new()
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+,$ctx1.sendIdx["new"]=2
+//>>excludeEnd("ctx");
+][0];
+$recv($self.zones)._at_put_("jaune",$recv($recv($globals.TFZone)._new())._nbCoches_((16)));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"initialize",{})});
+//>>excludeEnd("ctx");
+}; }),
+$globals.TFFeuille);
+
+$core.addMethod(
+$core.method({
+selector: "zone:",
+protocol: "initialization",
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["type"],
+source: "zone: type\x0a\x09^ zones at: type",
+referencedClasses: [],
+//>>excludeEnd("ide");
+pragmas: [],
+messageSends: ["at:"]
+}, function ($methodClass){ return function (type){
+var self=this,$self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+return $recv($self.zones)._at_(type);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"zone:",{type:type})});
 //>>excludeEnd("ctx");
 }; }),
 $globals.TFFeuille);
@@ -759,6 +921,31 @@ $globals.TFFeuille);
 
 $core.addClass("TFJeu", $globals.Object, "TresFute");
 $core.setSlots($globals.TFJeu, ["des", "plateau", "feuille"]);
+$core.addMethod(
+$core.method({
+selector: "choisit:en:",
+protocol: "actions",
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["couleur", "pos"],
+source: "choisit: couleur en: pos\x0a\x09feuille choisit: couleur en: pos.\x0a\x09\x22nouveau lancer\x22\x0a\x09des lance",
+referencedClasses: [],
+//>>excludeEnd("ide");
+pragmas: [],
+messageSends: ["choisit:en:", "lance"]
+}, function ($methodClass){ return function (couleur,pos){
+var self=this,$self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$recv($self.feuille)._choisit_en_(couleur,pos);
+$recv($self.des)._lance();
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"choisit:en:",{couleur:couleur,pos:pos})});
+//>>excludeEnd("ctx");
+}; }),
+$globals.TFJeu);
+
 $core.addMethod(
 $core.method({
 selector: "choisitDe:",
@@ -908,15 +1095,21 @@ selector: "start",
 protocol: "as yet unclassified",
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "start",
-referencedClasses: [],
+source: "start\x0a\x09TFWJeu new",
+referencedClasses: ["TFWJeu"],
 //>>excludeEnd("ide");
 pragmas: [],
-messageSends: []
+messageSends: ["new"]
 }, function ($methodClass){ return function (){
 var self=this,$self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$recv($globals.TFWJeu)._new();
 return self;
-
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"start",{})});
+//>>excludeEnd("ctx");
 }; }),
 $globals.TresFute);
 

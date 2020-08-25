@@ -12,10 +12,19 @@
     width: 535px;
     height: 760px;
     background-image: url('../img/tresfute.jpg');
+    /* for check cross symbol */
+    font-size: 50px;
+    line-height: 35px;
 }
 .feuille .des {
-    width: 82px;
-    height: 240px;
+    width: 81px;
+    height: 245px;
+    border: none;
+    padding: 3px;
+    margin-left: 6px;
+    margin-top: 4px;
+    float: left;
+/*    background: rgba(128, 255, 255, 0.5);*/
 }
 .choisis {
     position: absolute;
@@ -24,4 +33,74 @@
     width: 80px;
     height: 240px;
     border: 10px red;
+}
+.feuille .tours {
+    width: 442px;
+    height: 85px;
+/*	background: rgb(255,255,128,.50);*/
+    float: right;
+    margin-top: 4px;
+    font-size: 50px;
+    line-height: 35px;
+}
+.feuille .relance {
+    width: 442px;
+    height: 83px;
+    float: left;
+/*    background: rgb(255,128,255,.5);*/
+}
+.feuille .plusun {
+    width: 442px;
+    height: 83px;
+    float: left;
+/*    background: rgb(255,255,128,.5);*/
+}
+.feuille .jaune {
+    width: 264px;
+    height: 250px;
+    float: left;
+    margin-left: 6px;
+/* background: rgb(255,128,255,.5); */
+}
+.feuille .jaune .coches {
+    width: 180px;
+    /*background: rgb(255,255,128,0.5);*/
+    margin-top: 9px;
+    margin-left: 15px;
+}
+.feuille .bleu {
+    width: 264px;
+    height: 250px;
+    float: right;
+/*    background: rgb(255,255,128,.5);*/
+}
+.feuille .vert {
+/*    background: rgb(128,255,255,.5);*/
+    width: 526px;
+    height: 96px;
+    margin-left: 6px;
+    float: left;
+}
+.feuille .orange {
+    float: left;
+    width: 526px;
+    height: 76px;
+/*  background: rgb(128,255,255,.5);*/
+    margin-left: 6px;
+}
+.feuille .violet {
+    float: left;
+    width: 526px;
+    height: 76px;
+/*  background: rgb(128,255,255,.5);*/
+    margin-left: 6px;
+}
+.coche {
+    /*background: rgba(255, 128, 255, 0.5);*/
+    width: 35px;
+    height: 40px;
+    padding-left: 6px;
+    display: inline-block;
+    margin-left: 4px;
+    margin-top: 3px;
 }

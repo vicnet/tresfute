@@ -3,6 +3,12 @@ TFAnnonceur subclass: #TFWElement
 	slots: {#elt}
 	package: 'TresFute-Web'!
 
+!TFWElement methodsFor: 'as yet unclassified'!
+
+divOn: aSilk with: class
+	elt := aSilk DIV: { 'class'->class }
+! !
+
 TFWElement subclass: #TFWDe
 	slots: {#de}
 	package: 'TresFute-Web'!
@@ -52,9 +58,31 @@ feuille: uneFeuille
 !
 
 renderOnSilk: aSilk
-	elt := aSilk DIV: { 'class'->'feuille' }.
+	self divOn: aSilk with: 'feuille'.
+
 	choisis := TFWSetDes new: feuille choisis.
-	elt << choisis
+	elt << choisis.
+	"other parts"
+	TFWZone new divOn: elt with: 'tours'.
+	elt DIV: { 'class'->'relance' }.
+	elt DIV: { 'class'->'plusun' }.
+	self zone: #jaune avec: 16.
+	elt DIV: { 'class'->'bleu' }.
+	elt DIV: { 'class'->'vert' }.
+	elt DIV: { 'class'->'orange' }.
+	elt DIV: { 'class'->'violet' }
+!
+
+zone: type avec: nbCoches
+	| zone |
+	zone := TFWZone new
+		type: #jaune ;
+		zone: (feuille zone: type);
+		divOn: elt coches: 16.
+	"retransmet l'annonce des cochages"
+	zone annonceur on: TFWEvtCoche do: [ :evt |
+		self annonce: evt
+		]
 ! !
 
 !TFWFeuille class methodsFor: 'as yet unclassified'!
@@ -85,7 +113,10 @@ initialize
 	"gestion des evenements"
 	des annonceur on: TFWDe do: [ :evt |
 		jeu choisitDe: (evt de)
-	]
+		].
+	feuille annonceur on: TFWEvtCoche do: [ :evt |
+		jeu choisit: evt type en: evt numero
+		]
 ! !
 
 TFWElement subclass: #TFWSetDes
@@ -100,6 +131,7 @@ actualise
 	des do: [ :de | 
 		img := TFWDe new: de.
 		elt << img.
+		"retransmet l'annonce des dés"
 		img annonceur on: TFWDe do: [ :evt |
 			self annonce: evt
 		]
@@ -112,7 +144,8 @@ des: desDes
 !
 
 renderOnSilk: aSilk
-	elt := aSilk DIV: { 'class'->'des'}.
+	self divOn: aSilk with: 'des'.
+
 	self actualise
 ! !
 
@@ -122,5 +155,76 @@ new: desDes
 	^ TFWSetDes new
 		des: desDes;
 		yourself
+! !
+
+TFWElement subclass: #TFWZone
+	slots: {#type. #zone. #coches}
+	package: 'TresFute-Web'!
+
+!TFWZone methodsFor: 'as yet unclassified'!
+
+actualise
+	coches withIndexDo: [ :coche :i |
+		coche resetContents.
+		(zone at: i) ifTrue: [ coche << '✗' ]
+		]
+!
+
+divOn: aSilk coches: n
+	| eltcoches coche |
+	self divOn: aSilk with: type.
+	eltcoches := elt DIV: { 'class'->'coches' }.
+	1 to: n do: [ :i |
+		coche := eltcoches DIV: { 'class'->'coche' }.
+		coches add: coche.
+		coche on: #click
+			  bind: [
+				  self annonce: (TFWEvtCoche new: type sur: i)
+			      ]
+		]
+!
+
+initialize
+	coches := Array new
+!
+
+type: aType
+	"type de zone, sert aussi pour la classe du div"
+	type := aType
+!
+
+zone: uneZone
+	zone := uneZone.
+	zone annonceur on: TFZone do: [ :evt | self actualise ]
+! !
+
+TFEvenement subclass: #TFWEvtCoche
+	slots: {#type. #num}
+	package: 'TresFute-Web'!
+
+!TFWEvtCoche methodsFor: 'as yet unclassified'!
+
+numero
+	^ num
+!
+
+numero: unNum
+	num := unNum
+!
+
+type
+	^ type
+!
+
+type: aType
+	type := aType
+! !
+
+!TFWEvtCoche class methodsFor: 'as yet unclassified'!
+
+new: type sur: num
+	^ (TFWEvtCoche new)
+		type:type;
+		numero: num
 ! !
 
