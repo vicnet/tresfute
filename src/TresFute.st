@@ -113,6 +113,10 @@ choisit: indexOuDe
 	^  de
 !
 
+dernier
+	^ des last
+!
+
 do: bloc
 	des do: bloc
 !
@@ -158,7 +162,7 @@ printOn: aStream
 ! !
 
 TFAnnonceur subclass: #TFZone
-	slots: {#coches}
+	slots: {#coches. #nombre. #carre}
 	package: 'TresFute'!
 
 !TFZone methodsFor: 'as yet unclassified'!
@@ -167,9 +171,30 @@ at: pos
 	^ coches at: pos
 !
 
+carre
+	^ carre
+!
+
+carre: type
+	carre := type
+!
+
+coche
+	^ nombre not
+!
+
 coche: pos
 	coches at: pos put: true.
 	self annonce
+!
+
+coche: pos avec: valeur
+	coches at: pos put: valeur.
+	self annonce
+!
+
+ligne
+	^ carre not
 !
 
 nbCoches
@@ -177,7 +202,15 @@ nbCoches
 !
 
 nbCoches: nb
-	coches := (1 to: nb) collect: [ false ]
+	coches := Array new: nb
+!
+
+nombre
+	^ nombre
+!
+
+nombre: unNombre
+	nombre := unNombre
 ! !
 
 !TFZone class methodsFor: 'as yet unclassified'!
@@ -207,17 +240,17 @@ choisis
 !
 
 choisit: couleur en: pos
-	(zones at: couleur) coche: pos
+	(zones at: couleur) coche: pos avec: (choisis dernier valeur)
 !
 
 initialize
 	choisis := TFSetDes new.
 	zones := Dictionary new.
-	zones at: #jaune put: (TFZone new nbCoches: 16).
-	zones at: #bleu put: (TFZone new nbCoches: 12).
-	zones at: #vert put: (TFZone new nbCoches: 11).
-	zones at: #orange put: (TFZone new nbCoches: 11).
-	zones at: #violet put: (TFZone new nbCoches: 11)
+	zones at: #jaune put: (TFZone new nbCoches: 16; carre: true; nombre: false).
+	zones at: #bleu put: (TFZone new nbCoches: 12; carre: true; nombre: false).
+	zones at: #vert put: (TFZone new nbCoches: 11; carre: false; nombre: false).
+	zones at: #orange put: (TFZone new nbCoches: 11; carre: false; nombre: true).
+	zones at: #violet put: (TFZone new nbCoches: 11; carre: false; nombre: true)
 !
 
 zone: type

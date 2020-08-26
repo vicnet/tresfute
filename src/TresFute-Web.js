@@ -553,23 +553,37 @@ selector: "actualise",
 protocol: "as yet unclassified",
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "actualise\x0a\x09coches withIndexDo: [ :coche :i |\x0a\x09\x09coche resetContents.\x0a\x09\x09(zone at: i) ifTrue: [ coche << '✗' ]\x0a\x09\x09]",
+source: "actualise\x0a\x09coches withIndexDo: [ :coche :i |\x0a\x09\x09coche resetContents.\x0a\x09\x09(zone at: i) ifNotNil: [ :val |\x0a\x09\x09\x09zone nombre\x0a\x09\x09\x09\x09ifTrue: [ coche << val asString ]\x0a\x09\x09\x09\x09ifFalse: [ coche << '✗' ]\x0a\x09\x09\x09]\x0a\x09\x09]",
 referencedClasses: [],
 //>>excludeEnd("ide");
 pragmas: [],
-messageSends: ["withIndexDo:", "resetContents", "ifTrue:", "at:", "<<"]
+messageSends: ["withIndexDo:", "resetContents", "ifNotNil:", "at:", "ifTrue:ifFalse:", "nombre", "<<", "asString"]
 }, function ($methodClass){ return function (){
 var self=this,$self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
+var $1;
 $recv($self.coches)._withIndexDo_((function(coche,i){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $recv(coche)._resetContents();
-if($core.assert($recv($self.zone)._at_(i))){
+$1=$recv($self.zone)._at_(i);
+if($1 == null || $1.a$nil){
+return $1;
+} else {
+var val;
+val=$1;
+if($core.assert($recv($self.zone)._nombre())){
+return [$recv(coche).__lt_lt($recv(val)._asString())
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+,$ctx2.sendIdx["<<"]=1
+//>>excludeEnd("ctx");
+][0];
+} else {
 return $recv(coche).__lt_lt("✗");
+}
 }
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({coche:coche,i:i},$ctx1,1)});
@@ -612,18 +626,44 @@ selector: "renderOnSilk:",
 protocol: "as yet unclassified",
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aSilk"],
-source: "renderOnSilk: aSilk\x0a\x09| eltcoches coche |\x0a\x09self divOn: aSilk with: type.\x0a\x09eltcoches := elt DIV: { 'class'->'coches' }.\x0a\x091 to: (zone nbCoches) do: [ :i |\x0a\x09\x09coche := eltcoches DIV: { 'class'->'coche' }.\x0a\x09\x09coches add: coche.\x0a\x09\x09coche on: #click\x0a\x09\x09\x09  bind: [\x0a\x09\x09\x09\x09  self annonce: (TFWEvtCoche new: type sur: i)\x0a\x09\x09\x09      ]\x0a\x09\x09]",
+source: "renderOnSilk: aSilk\x0a\x09| eltcoches coche class |\x0a\x09class := type,' ',\x0a\x09\x09\x09(zone nombre ifTrue: [ 'nombre' ] ifFalse: [ 'croix' ]), ' ',\x0a\x09\x09\x09(zone ligne ifTrue: [ 'ligne' ] ifFalse: [ 'carre' ]).\x0a\x09self divOn: aSilk with: class.\x0a\x09eltcoches := elt DIV: { 'class'->'coches' }.\x0a\x091 to: (zone nbCoches) do: [ :i |\x0a\x09\x09coche := eltcoches DIV: { 'class'->'coche' }.\x0a\x09\x09coches add: coche.\x0a\x09\x09coche on: #click\x0a\x09\x09\x09  bind: [\x0a\x09\x09\x09\x09  self annonce: (TFWEvtCoche new: type sur: i)\x0a\x09\x09\x09      ]\x0a\x09\x09]",
 referencedClasses: ["TFWEvtCoche"],
 //>>excludeEnd("ide");
 pragmas: [],
-messageSends: ["divOn:with:", "DIV:", "->", "to:do:", "nbCoches", "add:", "on:bind:", "annonce:", "new:sur:"]
+messageSends: [",", "ifTrue:ifFalse:", "nombre", "ligne", "divOn:with:", "DIV:", "->", "to:do:", "nbCoches", "add:", "on:bind:", "annonce:", "new:sur:"]
 }, function ($methodClass){ return function (aSilk){
 var self=this,$self=this;
-var eltcoches,coche;
+var eltcoches,coche,class_;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-$self._divOn_with_(aSilk,$self.type);
+var $1,$2,$3,$4;
+$1=$recv($self.type).__comma(" ");
+if($core.assert($recv($self.zone)._nombre())){
+$2="nombre";
+} else {
+$2="croix";
+}
+$3=[$recv([$recv($1).__comma($2)
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+,$ctx1.sendIdx[","]=3
+//>>excludeEnd("ctx");
+][0]).__comma(" ")
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+,$ctx1.sendIdx[","]=2
+//>>excludeEnd("ctx");
+][0];
+if($core.assert($recv($self.zone)._ligne())){
+$4="ligne";
+} else {
+$4="carre";
+}
+class_=[$recv($3).__comma($4)
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+,$ctx1.sendIdx[","]=1
+//>>excludeEnd("ctx");
+][0];
+$self._divOn_with_(aSilk,class_);
 eltcoches=[$recv($self.elt)._DIV_([["class".__minus_gt("coches")
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 ,$ctx1.sendIdx["->"]=1
@@ -645,16 +685,16 @@ return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return $self._annonce_($recv($globals.TFWEvtCoche)._new_sur_($self.type,i));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)});
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,6)});
 //>>excludeEnd("ctx");
 }));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx2) {$ctx2.fillBlock({i:i},$ctx1,1)});
+}, function($ctx2) {$ctx2.fillBlock({i:i},$ctx1,5)});
 //>>excludeEnd("ctx");
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"renderOnSilk:",{aSilk:aSilk,eltcoches:eltcoches,coche:coche})});
+}, function($ctx1) {$ctx1.fill(self,"renderOnSilk:",{aSilk:aSilk,eltcoches:eltcoches,coche:coche,class_:class_})});
 //>>excludeEnd("ctx");
 }; }),
 $globals.TFWZone);

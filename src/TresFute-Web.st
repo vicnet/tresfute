@@ -166,7 +166,11 @@ TFWElement subclass: #TFWZone
 actualise
 	coches withIndexDo: [ :coche :i |
 		coche resetContents.
-		(zone at: i) ifTrue: [ coche << '✗' ]
+		(zone at: i) ifNotNil: [ :val |
+			zone nombre
+				ifTrue: [ coche << val asString ]
+				ifFalse: [ coche << '✗' ]
+			]
 		]
 !
 
@@ -175,8 +179,11 @@ initialize
 !
 
 renderOnSilk: aSilk
-	| eltcoches coche |
-	self divOn: aSilk with: type.
+	| eltcoches coche class |
+	class := type,' ',
+			(zone nombre ifTrue: [ 'nombre' ] ifFalse: [ 'croix' ]), ' ',
+			(zone ligne ifTrue: [ 'ligne' ] ifFalse: [ 'carre' ]).
+	self divOn: aSilk with: class.
 	eltcoches := elt DIV: { 'class'->'coches' }.
 	1 to: (zone nbCoches) do: [ :i |
 		coche := eltcoches DIV: { 'class'->'coche' }.

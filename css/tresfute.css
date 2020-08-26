@@ -12,9 +12,17 @@
     width: 535px;
     height: 760px;
     background-image: url('../img/tresfute.jpg');
-    /* for check cross symbol */
+}
+.feuille .croix .coche {
     font-size: 50px;
     line-height: 35px;
+}
+.feuille .nombre .coche {
+    font-size: 35px;
+    line-height: 35px;
+    font-family: "Comic Sans MS", "Comic Sans";
+    font-weight: bold;
+    padding-left: 6px;
 }
 .feuille .des {
     width: 81px;
@@ -66,7 +74,7 @@
     width: 180px;
     /*background: rgb(255,255,128,0.5);*/
     margin-top: 9px;
-    margin-left: 15px;
+    margin-left: 17px;
 }
 .feuille .bleu {
     width: 264px;
@@ -77,7 +85,7 @@
 .feuille .bleu .coches {
     width: 184px;
     margin-top: 60px;
-    margin-left: 12px;
+    margin-left: 13px;
     /*background: rgb(255,255,128,.5);*/
 }
 .feuille .vert {
@@ -119,24 +127,12 @@
     height: 40px;
     padding-left: 6px;
     display: inline-block;
+}
+.feuille .ligne .coche {
     margin-left: -0.25px;
-    margin-top: 3px;
+    margin-top: 2px;
 }
-.feuille .jaune .coche {
-    /*background: rgba(255, 128, 255, 0.5);*/
-    width: 35px;
-    height: 40px;
-    padding-left: 6px;
-    display: inline-block;
+.feuille .carre .coche {
     margin-left: 4px;
-    margin-top: 3px;
-}
-.feuille .bleu .coche { /* copie du .jaune */
-    /*background: rgba(255, 128, 255, 0.5);*/
-    width: 35px;
-    height: 40px;
-    padding-left: 6px;
-    display: inline-block;
-    margin-left: 4px;
-    margin-top: 3px;
+    margin-top: 2px;
 }
