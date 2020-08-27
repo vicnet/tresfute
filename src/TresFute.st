@@ -205,18 +205,133 @@ nbCoches: nb
 	coches := Array new: nb
 !
 
+nbRemplis
+	| nb |
+	nb := 0.
+	coches do: [ :coche |
+		coche ifNotNil: [ nb := nb + 1 ]
+		].
+	^ nb
+!
+
 nombre
 	^ nombre
 !
 
 nombre: unNombre
 	nombre := unNombre
+!
+
+score
+	^ 0
 ! !
 
 !TFZone class methodsFor: 'as yet unclassified'!
 
 new: nb
 	^ TFZone new nbCoches: nb
+! !
+
+TFZone subclass: #TFZoneCumul
+	slots: {}
+	package: 'TresFute'!
+
+!TFZoneCumul methodsFor: 'as yet unclassified'!
+
+score
+	^ coches inject: 0 into: [ :score :valeur |
+		valeur ifNil:    [ score]
+			   ifNotNil: [ score + valeur ]
+		]
+! !
+
+TFZoneCumul subclass: #TFZoneOrange
+	slots: {#doubles}
+	package: 'TresFute'!
+
+!TFZoneOrange methodsFor: 'as yet unclassified'!
+
+coche: pos avec: valeur
+	(doubles includes: pos)
+		ifTrue: [ coches at: pos put: valeur*2 ]
+		ifFalse: [ coches at: pos put: valeur ].
+	self annonce
+!
+
+initialize
+	super initialize.
+	self nbCoches: 11; carre: false; nombre: true.
+	doubles := #(4 7 9 11)
+! !
+
+TFZoneCumul subclass: #TFZoneViolet
+	slots: {}
+	package: 'TresFute'!
+
+!TFZoneViolet methodsFor: 'as yet unclassified'!
+
+initialize
+	super initialize.
+	self nbCoches: 11; carre: false; nombre: true
+! !
+
+TFZone subclass: #TFZoneJaune
+	slots: {#scores}
+	package: 'TresFute'!
+
+!TFZoneJaune methodsFor: 'as yet unclassified'!
+
+initialize
+	super initialize.
+	self nbCoches: 16; carre: true; nombre: false.
+	scores := {
+		#(1  5  9) -> 10.
+		#(2  6 14) -> 14.
+		#(3 11 15) -> 16.
+		#(8 12 16) -> 20.
+		}
+!
+
+score
+	^ scores inject: 0 into: [ :somme :score |
+		(score key allSatisfy: [ :pos | (coches at: pos) notNil ])
+			ifTrue: [ somme + score value ]
+			ifFalse: [ somme ]
+		]
+! !
+
+TFZone subclass: #TFZonePos
+	slots: {#scores}
+	package: 'TresFute'!
+
+!TFZonePos methodsFor: 'as yet unclassified'!
+
+score
+	^ scores at: (self nbRemplis + 1)
+! !
+
+TFZonePos subclass: #TFZoneBleu
+	slots: {}
+	package: 'TresFute'!
+
+!TFZoneBleu methodsFor: 'as yet unclassified'!
+
+initialize
+	super initialize.
+	self nbCoches: 12; carre: true; nombre: false.
+	scores := #(0 1 2 4 7 11 16 22 29 37 46 56)
+! !
+
+TFZonePos subclass: #TFZoneVert
+	slots: {}
+	package: 'TresFute'!
+
+!TFZoneVert methodsFor: 'as yet unclassified'!
+
+initialize
+	super initialize.
+	self nbCoches: 11; carre: false; nombre: false.
+	scores := #(0 1 3 6 10 15 21 28 36 45 55 66)
 ! !
 
 Object subclass: #TFEvenement
@@ -246,11 +361,17 @@ choisit: couleur en: pos
 initialize
 	choisis := TFSetDes new.
 	zones := Dictionary new.
-	zones at: #jaune put: (TFZone new nbCoches: 16; carre: true; nombre: false).
-	zones at: #bleu put: (TFZone new nbCoches: 12; carre: true; nombre: false).
-	zones at: #vert put: (TFZone new nbCoches: 11; carre: false; nombre: false).
-	zones at: #orange put: (TFZone new nbCoches: 11; carre: false; nombre: true).
-	zones at: #violet put: (TFZone new nbCoches: 11; carre: false; nombre: true)
+	zones at: #jaune put: (TFZoneJaune new).
+	zones at: #bleu put: (TFZoneBleu new).
+	zones at: #vert put: (TFZoneVert new).
+	zones at: #orange put: (TFZoneOrange new).
+	zones at: #violet put: (TFZoneViolet new)
+!
+
+score
+	^ zones inject: 0 into: [ :somme :zone |
+		somme + zone score
+		]
 !
 
 zone: type
@@ -316,5 +437,6 @@ start
 !TresFute class methodsFor: 'as yet unclassified'!
 
 start
+	TresFute new start
 ! !
 

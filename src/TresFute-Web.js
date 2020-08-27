@@ -345,13 +345,14 @@ selector: "initialize",
 protocol: "as yet unclassified",
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "initialize\x0a\x09\x22le jeu\x22\x0a\x09jeu := TFJeu new.\x0a\x09\x22creation des elements\x22\x0a\x09des := TFWSetDes new: jeu des.\x0a\x09plateau := TFWSetDes new: jeu plateau.\x0a\x09feuille := TFWFeuille new: jeu feuille.\x0a\x09\x22partie web\x22\x09\x0a\x09elt := '#jeu' asSilk.\x0a\x09elt resetContents.\x0a\x09elt << des << feuille << plateau.\x0a\x09\x22gestion des evenements\x22\x0a\x09des annonceur on: TFWDe do: [ :evt |\x0a\x09\x09jeu choisitDe: (evt de)\x0a\x09\x09].\x0a\x09feuille annonceur on: TFWEvtCoche do: [ :evt |\x0a\x09\x09jeu choisit: evt type en: evt numero\x0a\x09\x09]\x09",
-referencedClasses: ["TFJeu", "TFWSetDes", "TFWFeuille", "TFWDe", "TFWEvtCoche"],
+source: "initialize\x0a\x09| ihmjeu ihmscores |\x0a\x09\x22le jeu\x22\x0a\x09jeu := TFJeu new.\x0a\x09\x22creation des elements\x22\x0a\x09des := TFWSetDes new: jeu des.\x0a\x09plateau := TFWSetDes new: jeu plateau.\x0a\x09feuille := TFWFeuille new: jeu feuille.\x0a\x09\x22partie web\x22\x09\x0a\x09elt := '#tresfute' asSilk.\x0a\x09elt resetContents.\x0a\x09\x0a\x09ihmjeu := (elt DIV: { 'class'->'jeu'}).\x0a\x09ihmjeu << des << feuille << plateau.\x0a\x09\x0a\x09ihmscores := TFWScores new: jeu feuille.\x0a\x09elt << ihmscores.\x0a\x09\x0a\x09\x22gestion des evenements\x22\x0a\x09des annonceur on: TFWDe do: [ :evt |\x0a\x09\x09jeu choisitDe: (evt de)\x0a\x09\x09].\x0a\x09feuille annonceur on: TFWEvtCoche do: [ :evt |\x0a\x09\x09jeu choisit: evt type en: evt numero\x0a\x09\x09]\x09",
+referencedClasses: ["TFJeu", "TFWSetDes", "TFWFeuille", "TFWScores", "TFWDe", "TFWEvtCoche"],
 //>>excludeEnd("ide");
 pragmas: [],
-messageSends: ["new", "new:", "des", "plateau", "feuille", "asSilk", "resetContents", "<<", "on:do:", "annonceur", "choisitDe:", "de", "choisit:en:", "type", "numero"]
+messageSends: ["new", "new:", "des", "plateau", "feuille", "asSilk", "resetContents", "DIV:", "->", "<<", "on:do:", "annonceur", "choisitDe:", "de", "choisit:en:", "type", "numero"]
 }, function ($methodClass){ return function (){
 var self=this,$self=this;
+var ihmjeu,ihmscores;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
@@ -366,10 +367,23 @@ $self.plateau=[$recv($globals.TFWSetDes)._new_($recv($self.jeu)._plateau())
 ,$ctx1.sendIdx["new:"]=2
 //>>excludeEnd("ctx");
 ][0];
-$self.feuille=$recv($globals.TFWFeuille)._new_($recv($self.jeu)._feuille());
-$self.elt="#jeu"._asSilk();
+$self.feuille=[$recv($globals.TFWFeuille)._new_([$recv($self.jeu)._feuille()
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+,$ctx1.sendIdx["feuille"]=1
+//>>excludeEnd("ctx");
+][0])
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+,$ctx1.sendIdx["new:"]=3
+//>>excludeEnd("ctx");
+][0];
+$self.elt="#tresfute"._asSilk();
 $recv($self.elt)._resetContents();
-[$recv([$recv($recv($self.elt).__lt_lt($self.des)).__lt_lt($self.feuille)
+ihmjeu=$recv($self.elt)._DIV_(["class".__minus_gt("jeu")]);
+[$recv([$recv([$recv(ihmjeu).__lt_lt($self.des)
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+,$ctx1.sendIdx["<<"]=3
+//>>excludeEnd("ctx");
+][0]).__lt_lt($self.feuille)
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 ,$ctx1.sendIdx["<<"]=2
 //>>excludeEnd("ctx");
@@ -378,6 +392,8 @@ $recv($self.elt)._resetContents();
 ,$ctx1.sendIdx["<<"]=1
 //>>excludeEnd("ctx");
 ][0];
+ihmscores=$recv($globals.TFWScores)._new_($recv($self.jeu)._feuille());
+$recv($self.elt).__lt_lt(ihmscores);
 [$recv([$recv($self.des)._annonceur()
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 ,$ctx1.sendIdx["annonceur"]=1
@@ -406,11 +422,203 @@ return $recv($self.jeu)._choisit_en_($recv(evt)._type(),$recv(evt)._numero());
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"initialize",{})});
+}, function($ctx1) {$ctx1.fill(self,"initialize",{ihmjeu:ihmjeu,ihmscores:ihmscores})});
 //>>excludeEnd("ctx");
 }; }),
 $globals.TFWJeu);
 
+
+
+$core.addClass("TFWScores", $globals.TFWElement, "TresFute-Web");
+$core.setSlots($globals.TFWScores, ["feuille", "total"]);
+$core.addMethod(
+$core.method({
+selector: "actualise:avec:",
+protocol: "as yet unclassified",
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["div", "zone"],
+source: "actualise: div avec: zone\x0a\x09div resetContents.\x0a\x09div << zone score asString.\x0a\x09self actualiseTotal",
+referencedClasses: [],
+//>>excludeEnd("ide");
+pragmas: [],
+messageSends: ["resetContents", "<<", "asString", "score", "actualiseTotal"]
+}, function ($methodClass){ return function (div,zone){
+var self=this,$self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$recv(div)._resetContents();
+$recv(div).__lt_lt($recv($recv(zone)._score())._asString());
+$self._actualiseTotal();
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"actualise:avec:",{div:div,zone:zone})});
+//>>excludeEnd("ctx");
+}; }),
+$globals.TFWScores);
+
+$core.addMethod(
+$core.method({
+selector: "actualiseTotal",
+protocol: "as yet unclassified",
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "actualiseTotal\x0a\x09total ifNil: [ ^ self ].\x0a\x09total resetContents.\x0a\x09total << feuille score asString",
+referencedClasses: [],
+//>>excludeEnd("ide");
+pragmas: [],
+messageSends: ["ifNil:", "resetContents", "<<", "asString", "score"]
+}, function ($methodClass){ return function (){
+var self=this,$self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$self.total;
+if($1 == null || $1.a$nil){
+return self;
+} else {
+$1;
+}
+$recv($self.total)._resetContents();
+$recv($self.total).__lt_lt($recv($recv($self.feuille)._score())._asString());
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"actualiseTotal",{})});
+//>>excludeEnd("ctx");
+}; }),
+$globals.TFWScores);
+
+$core.addMethod(
+$core.method({
+selector: "feuille:",
+protocol: "as yet unclassified",
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["uneFeuille"],
+source: "feuille: uneFeuille\x0a\x09feuille := uneFeuille",
+referencedClasses: [],
+//>>excludeEnd("ide");
+pragmas: [],
+messageSends: []
+}, function ($methodClass){ return function (uneFeuille){
+var self=this,$self=this;
+$self.feuille=uneFeuille;
+return self;
+
+}; }),
+$globals.TFWScores);
+
+$core.addMethod(
+$core.method({
+selector: "renderOnSilk:",
+protocol: "as yet unclassified",
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aSilk"],
+source: "renderOnSilk: aSilk\x0a\x09self divOn: aSilk with: 'scores'.\x0a\x09#(#jaune #bleu #vert #orange #violet #renard #total) do: [ :zone |\x0a\x09\x09self zone: zone\x0a\x09\x09].\x0a\x09self actualiseTotal",
+referencedClasses: [],
+//>>excludeEnd("ide");
+pragmas: [],
+messageSends: ["divOn:with:", "do:", "zone:", "actualiseTotal"]
+}, function ($methodClass){ return function (aSilk){
+var self=this,$self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$self._divOn_with_(aSilk,"scores");
+["jaune", "bleu", "vert", "orange", "violet", "renard", "total"]._do_((function(zone){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+return $self._zone_(zone);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({zone:zone},$ctx1,1)});
+//>>excludeEnd("ctx");
+}));
+$self._actualiseTotal();
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"renderOnSilk:",{aSilk:aSilk})});
+//>>excludeEnd("ctx");
+}; }),
+$globals.TFWScores);
+
+$core.addMethod(
+$core.method({
+selector: "zone:",
+protocol: "as yet unclassified",
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["couleur"],
+source: "zone: couleur\x0a\x09| div zone |\x0a\x09div := elt DIV: { 'class'->('score ',couleur) }.\x0a\x09couleur=#renard ifTrue: [ ^ self ].\x0a\x09couleur=#total ifTrue: [ total := div. ^ self ].\x0a\x09zone := (feuille zone: couleur).\x0a\x09zone annonceur on: TFZone do: [ :evt | self actualise: div avec: zone ].\x0a\x09self actualise: div avec: zone",
+referencedClasses: ["TFZone"],
+//>>excludeEnd("ide");
+pragmas: [],
+messageSends: ["DIV:", "->", ",", "ifTrue:", "=", "zone:", "on:do:", "annonceur", "actualise:avec:"]
+}, function ($methodClass){ return function (couleur){
+var self=this,$self=this;
+var div,zone;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+div=$recv($self.elt)._DIV_(["class".__minus_gt("score ".__comma(couleur))]);
+if($core.assert([$recv(couleur).__eq("renard")
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+,$ctx1.sendIdx["="]=1
+//>>excludeEnd("ctx");
+][0])){
+return self;
+}
+if($core.assert($recv(couleur).__eq("total"))){
+$self.total=div;
+return self;
+}
+zone=$recv($self.feuille)._zone_(couleur);
+$recv($recv(zone)._annonceur())._on_do_($globals.TFZone,(function(evt){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+return [$self._actualise_avec_(div,zone)
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+,$ctx2.sendIdx["actualise:avec:"]=1
+//>>excludeEnd("ctx");
+][0];
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({evt:evt},$ctx1,3)});
+//>>excludeEnd("ctx");
+}));
+$self._actualise_avec_(div,zone);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"zone:",{couleur:couleur,div:div,zone:zone})});
+//>>excludeEnd("ctx");
+}; }),
+$globals.TFWScores);
+
+
+$core.addMethod(
+$core.method({
+selector: "new:",
+protocol: "as yet unclassified",
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["feuille"],
+source: "new: feuille\x0a\x09^ TFWScores new\x0a\x09\x09feuille: feuille;\x0a\x09\x09yourself",
+referencedClasses: ["TFWScores"],
+//>>excludeEnd("ide");
+pragmas: [],
+messageSends: ["feuille:", "new", "yourself"]
+}, function ($methodClass){ return function (feuille){
+var self=this,$self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv($globals.TFWScores)._new();
+$recv($1)._feuille_(feuille);
+return $recv($1)._yourself();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"new:",{feuille:feuille})});
+//>>excludeEnd("ctx");
+}; }),
+$globals.TFWScores.a$cls);
 
 
 $core.addClass("TFWSetDes", $globals.TFWElement, "TresFute-Web");

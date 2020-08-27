@@ -45,7 +45,7 @@
 .feuille .tours {
     width: 442px;
     height: 85px;
-/*	background: rgb(255,255,128,.50);*/
+/*background: rgb(255,255,128,.50);*/
     float: right;
     margin-top: 4px;
     font-size: 50px;
@@ -96,8 +96,8 @@
     float: left;
 }
 .feuille .vert .coches {
-	margin-top: 23px;
-	margin-left: 61px;
+margin-top: 23px;
+margin-left: 61px;
 }
 .feuille .orange {
     float: left;
@@ -107,8 +107,8 @@
     margin-left: 6px;
 }
 .feuille .orange .coches {
-	margin-top: 2px;
-	margin-left: 61px;
+margin-top: 2px;
+margin-left: 61px;
 }
 .feuille .violet {
     float: left;
@@ -135,4 +135,26 @@
 .feuille .carre .coche {
     margin-left: 4px;
     margin-top: 2px;
+}
+.jeu {
+    float: left;
+}
+.scores {
+    background-image: url('../img/scores.png');
+    width: 148px;
+    height: 464px;
+    float: left;
+    padding-top: 89px;
+    padding-left: 175px;
+}
+.score {
+    /* background: rgb(255,128,255, 0.5); */
+    width: 124px;
+    height: 55px;
+    margin-bottom: 9.5px;
+    font-size: 40px;
+    font-family: "Comic Sans MS", "Comic Sans";
+    font-weight: bold;
+    padding-right: 14px;
+    text-align: right;
 }

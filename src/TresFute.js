@@ -917,6 +917,45 @@ $globals.TFZone);
 
 $core.addMethod(
 $core.method({
+selector: "nbRemplis",
+protocol: "as yet unclassified",
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "nbRemplis\x0a\x09| nb |\x0a\x09nb := 0.\x0a\x09coches do: [ :coche |\x0a\x09\x09coche ifNotNil: [ nb := nb + 1 ]\x0a\x09\x09].\x0a\x09^ nb",
+referencedClasses: [],
+//>>excludeEnd("ide");
+pragmas: [],
+messageSends: ["do:", "ifNotNil:", "+"]
+}, function ($methodClass){ return function (){
+var self=this,$self=this;
+var nb;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+nb=(0);
+$recv($self.coches)._do_((function(coche){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+if(coche == null || coche.a$nil){
+return coche;
+} else {
+nb=$recv(nb).__plus((1));
+return nb;
+}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({coche:coche},$ctx1,1)});
+//>>excludeEnd("ctx");
+}));
+return nb;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"nbRemplis",{nb:nb})});
+//>>excludeEnd("ctx");
+}; }),
+$globals.TFZone);
+
+$core.addMethod(
+$core.method({
 selector: "nombre",
 protocol: "as yet unclassified",
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -952,6 +991,24 @@ return self;
 }; }),
 $globals.TFZone);
 
+$core.addMethod(
+$core.method({
+selector: "score",
+protocol: "as yet unclassified",
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "score\x0a\x09^ 0",
+referencedClasses: [],
+//>>excludeEnd("ide");
+pragmas: [],
+messageSends: []
+}, function ($methodClass){ return function (){
+var self=this,$self=this;
+return (0);
+
+}; }),
+$globals.TFZone);
+
 
 $core.addMethod(
 $core.method({
@@ -975,6 +1032,355 @@ return $recv($recv($globals.TFZone)._new())._nbCoches_(nb);
 //>>excludeEnd("ctx");
 }; }),
 $globals.TFZone.a$cls);
+
+
+$core.addClass("TFZoneCumul", $globals.TFZone, "TresFute");
+$core.addMethod(
+$core.method({
+selector: "score",
+protocol: "as yet unclassified",
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "score\x0a\x09^ coches inject: 0 into: [ :score :valeur |\x0a\x09\x09valeur ifNil:    [ score]\x0a\x09\x09\x09   ifNotNil: [ score + valeur ]\x0a\x09\x09]",
+referencedClasses: [],
+//>>excludeEnd("ide");
+pragmas: [],
+messageSends: ["inject:into:", "ifNil:ifNotNil:", "+"]
+}, function ($methodClass){ return function (){
+var self=this,$self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+return $recv($self.coches)._inject_into_((0),(function(score,valeur){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+if(valeur == null || valeur.a$nil){
+return score;
+} else {
+return $recv(score).__plus(valeur);
+}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({score:score,valeur:valeur},$ctx1,1)});
+//>>excludeEnd("ctx");
+}));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"score",{})});
+//>>excludeEnd("ctx");
+}; }),
+$globals.TFZoneCumul);
+
+
+
+$core.addClass("TFZoneOrange", $globals.TFZoneCumul, "TresFute");
+$core.setSlots($globals.TFZoneOrange, ["doubles"]);
+$core.addMethod(
+$core.method({
+selector: "coche:avec:",
+protocol: "as yet unclassified",
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["pos", "valeur"],
+source: "coche: pos avec: valeur\x0a\x09(doubles includes: pos)\x0a\x09\x09ifTrue: [ coches at: pos put: valeur*2 ]\x0a\x09\x09ifFalse: [ coches at: pos put: valeur ].\x0a\x09self annonce",
+referencedClasses: [],
+//>>excludeEnd("ide");
+pragmas: [],
+messageSends: ["ifTrue:ifFalse:", "includes:", "at:put:", "*", "annonce"]
+}, function ($methodClass){ return function (pos,valeur){
+var self=this,$self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+if($core.assert($recv($self.doubles)._includes_(pos))){
+[$recv($self.coches)._at_put_(pos,$recv(valeur).__star((2)))
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+,$ctx1.sendIdx["at:put:"]=1
+//>>excludeEnd("ctx");
+][0];
+} else {
+$recv($self.coches)._at_put_(pos,valeur);
+}
+$self._annonce();
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"coche:avec:",{pos:pos,valeur:valeur})});
+//>>excludeEnd("ctx");
+}; }),
+$globals.TFZoneOrange);
+
+$core.addMethod(
+$core.method({
+selector: "initialize",
+protocol: "as yet unclassified",
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "initialize\x0a\x09super initialize.\x0a\x09self nbCoches: 11; carre: false; nombre: true.\x0a\x09doubles := #(4 7 9 11)",
+referencedClasses: [],
+//>>excludeEnd("ide");
+pragmas: [],
+messageSends: ["initialize", "nbCoches:", "carre:", "nombre:"]
+}, function ($methodClass){ return function (){
+var self=this,$self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+[(
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.supercall = true,
+//>>excludeEnd("ctx");
+($methodClass.superclass||$boot.nilAsClass).fn.prototype._initialize.call($self))
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+,$ctx1.supercall = false
+//>>excludeEnd("ctx");
+][0];
+$self._nbCoches_((11));
+$self._carre_(false);
+$self._nombre_(true);
+$self.doubles=[(4), (7), (9), (11)];
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"initialize",{})});
+//>>excludeEnd("ctx");
+}; }),
+$globals.TFZoneOrange);
+
+
+
+$core.addClass("TFZoneViolet", $globals.TFZoneCumul, "TresFute");
+$core.addMethod(
+$core.method({
+selector: "initialize",
+protocol: "as yet unclassified",
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "initialize\x0a\x09super initialize.\x0a\x09self nbCoches: 11; carre: false; nombre: true",
+referencedClasses: [],
+//>>excludeEnd("ide");
+pragmas: [],
+messageSends: ["initialize", "nbCoches:", "carre:", "nombre:"]
+}, function ($methodClass){ return function (){
+var self=this,$self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+[(
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.supercall = true,
+//>>excludeEnd("ctx");
+($methodClass.superclass||$boot.nilAsClass).fn.prototype._initialize.call($self))
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+,$ctx1.supercall = false
+//>>excludeEnd("ctx");
+][0];
+$self._nbCoches_((11));
+$self._carre_(false);
+$self._nombre_(true);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"initialize",{})});
+//>>excludeEnd("ctx");
+}; }),
+$globals.TFZoneViolet);
+
+
+
+$core.addClass("TFZoneJaune", $globals.TFZone, "TresFute");
+$core.setSlots($globals.TFZoneJaune, ["scores"]);
+$core.addMethod(
+$core.method({
+selector: "initialize",
+protocol: "as yet unclassified",
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "initialize\x0a\x09super initialize.\x0a\x09self nbCoches: 16; carre: true; nombre: false.\x0a\x09scores := {\x0a\x09\x09#(1  5  9) -> 10.\x0a\x09\x09#(2  6 14) -> 14.\x0a\x09\x09#(3 11 15) -> 16.\x0a\x09\x09#(8 12 16) -> 20.\x0a\x09\x09}",
+referencedClasses: [],
+//>>excludeEnd("ide");
+pragmas: [],
+messageSends: ["initialize", "nbCoches:", "carre:", "nombre:", "->"]
+}, function ($methodClass){ return function (){
+var self=this,$self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+[(
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.supercall = true,
+//>>excludeEnd("ctx");
+($methodClass.superclass||$boot.nilAsClass).fn.prototype._initialize.call($self))
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+,$ctx1.supercall = false
+//>>excludeEnd("ctx");
+][0];
+$self._nbCoches_((16));
+$self._carre_(true);
+$self._nombre_(false);
+$self.scores=[[[(1), (5), (9)].__minus_gt((10))
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+,$ctx1.sendIdx["->"]=1
+//>>excludeEnd("ctx");
+][0],[[(2), (6), (14)].__minus_gt((14))
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+,$ctx1.sendIdx["->"]=2
+//>>excludeEnd("ctx");
+][0],[[(3), (11), (15)].__minus_gt((16))
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+,$ctx1.sendIdx["->"]=3
+//>>excludeEnd("ctx");
+][0],[(8), (12), (16)].__minus_gt((20))];
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"initialize",{})});
+//>>excludeEnd("ctx");
+}; }),
+$globals.TFZoneJaune);
+
+$core.addMethod(
+$core.method({
+selector: "score",
+protocol: "as yet unclassified",
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "score\x0a\x09^ scores inject: 0 into: [ :somme :score |\x0a\x09\x09(score key allSatisfy: [ :pos | (coches at: pos) notNil ])\x0a\x09\x09\x09ifTrue: [ somme + score value ]\x0a\x09\x09\x09ifFalse: [ somme ]\x0a\x09\x09]",
+referencedClasses: [],
+//>>excludeEnd("ide");
+pragmas: [],
+messageSends: ["inject:into:", "ifTrue:ifFalse:", "allSatisfy:", "key", "notNil", "at:", "+", "value"]
+}, function ($methodClass){ return function (){
+var self=this,$self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+return $recv($self.scores)._inject_into_((0),(function(somme,score){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+if($core.assert($recv($recv(score)._key())._allSatisfy_((function(pos){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx3) {
+//>>excludeEnd("ctx");
+return $recv($recv($self.coches)._at_(pos))._notNil();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx3) {$ctx3.fillBlock({pos:pos},$ctx2,2)});
+//>>excludeEnd("ctx");
+})))){
+return $recv(somme).__plus($recv(score)._value());
+} else {
+return somme;
+}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({somme:somme,score:score},$ctx1,1)});
+//>>excludeEnd("ctx");
+}));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"score",{})});
+//>>excludeEnd("ctx");
+}; }),
+$globals.TFZoneJaune);
+
+
+
+$core.addClass("TFZonePos", $globals.TFZone, "TresFute");
+$core.setSlots($globals.TFZonePos, ["scores"]);
+$core.addMethod(
+$core.method({
+selector: "score",
+protocol: "as yet unclassified",
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "score\x0a\x09^ scores at: (self nbRemplis + 1)",
+referencedClasses: [],
+//>>excludeEnd("ide");
+pragmas: [],
+messageSends: ["at:", "+", "nbRemplis"]
+}, function ($methodClass){ return function (){
+var self=this,$self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+return $recv($self.scores)._at_($recv($self._nbRemplis()).__plus((1)));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"score",{})});
+//>>excludeEnd("ctx");
+}; }),
+$globals.TFZonePos);
+
+
+
+$core.addClass("TFZoneBleu", $globals.TFZonePos, "TresFute");
+$core.addMethod(
+$core.method({
+selector: "initialize",
+protocol: "as yet unclassified",
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "initialize\x0a\x09super initialize.\x0a\x09self nbCoches: 12; carre: true; nombre: false.\x0a\x09scores := #(0 1 2 4 7 11 16 22 29 37 46 56)",
+referencedClasses: [],
+//>>excludeEnd("ide");
+pragmas: [],
+messageSends: ["initialize", "nbCoches:", "carre:", "nombre:"]
+}, function ($methodClass){ return function (){
+var self=this,$self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+[(
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.supercall = true,
+//>>excludeEnd("ctx");
+($methodClass.superclass||$boot.nilAsClass).fn.prototype._initialize.call($self))
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+,$ctx1.supercall = false
+//>>excludeEnd("ctx");
+][0];
+$self._nbCoches_((12));
+$self._carre_(true);
+$self._nombre_(false);
+$self.scores=[(0), (1), (2), (4), (7), (11), (16), (22), (29), (37), (46), (56)];
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"initialize",{})});
+//>>excludeEnd("ctx");
+}; }),
+$globals.TFZoneBleu);
+
+
+
+$core.addClass("TFZoneVert", $globals.TFZonePos, "TresFute");
+$core.addMethod(
+$core.method({
+selector: "initialize",
+protocol: "as yet unclassified",
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "initialize\x0a\x09super initialize.\x0a\x09self nbCoches: 11; carre: false; nombre: false.\x0a\x09scores := #(0 1 3 6 10 15 21 28 36 45 55 66)",
+referencedClasses: [],
+//>>excludeEnd("ide");
+pragmas: [],
+messageSends: ["initialize", "nbCoches:", "carre:", "nombre:"]
+}, function ($methodClass){ return function (){
+var self=this,$self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+[(
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.supercall = true,
+//>>excludeEnd("ctx");
+($methodClass.superclass||$boot.nilAsClass).fn.prototype._initialize.call($self))
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+,$ctx1.supercall = false
+//>>excludeEnd("ctx");
+][0];
+$self._nbCoches_((11));
+$self._carre_(false);
+$self._nombre_(false);
+$self.scores=[(0), (1), (3), (6), (10), (15), (21), (28), (36), (45), (55), (66)];
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"initialize",{})});
+//>>excludeEnd("ctx");
+}; }),
+$globals.TFZoneVert);
+
 
 
 $core.addClass("TFEvenement", $globals.Object, "TresFute");
@@ -1054,17 +1460,16 @@ selector: "initialize",
 protocol: "initialization",
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "initialize\x0a\x09choisis := TFSetDes new.\x0a\x09zones := Dictionary new.\x0a\x09zones at: #jaune put: (TFZone new nbCoches: 16; carre: true; nombre: false).\x0a\x09zones at: #bleu put: (TFZone new nbCoches: 12; carre: true; nombre: false).\x0a\x09zones at: #vert put: (TFZone new nbCoches: 11; carre: false; nombre: false).\x0a\x09zones at: #orange put: (TFZone new nbCoches: 11; carre: false; nombre: true).\x0a\x09zones at: #violet put: (TFZone new nbCoches: 11; carre: false; nombre: true)",
-referencedClasses: ["TFSetDes", "Dictionary", "TFZone"],
+source: "initialize\x0a\x09choisis := TFSetDes new.\x0a\x09zones := Dictionary new.\x0a\x09zones at: #jaune put: (TFZoneJaune new).\x0a\x09zones at: #bleu put: (TFZoneBleu new).\x0a\x09zones at: #vert put: (TFZoneVert new).\x0a\x09zones at: #orange put: (TFZoneOrange new).\x0a\x09zones at: #violet put: (TFZoneViolet new)",
+referencedClasses: ["TFSetDes", "Dictionary", "TFZoneJaune", "TFZoneBleu", "TFZoneVert", "TFZoneOrange", "TFZoneViolet"],
 //>>excludeEnd("ide");
 pragmas: [],
-messageSends: ["new", "at:put:", "nbCoches:", "carre:", "nombre:"]
+messageSends: ["new", "at:put:"]
 }, function ($methodClass){ return function (){
 var self=this,$self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10;
 $self.choisis=[$recv($globals.TFSetDes)._new()
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 ,$ctx1.sendIdx["new"]=1
@@ -1075,114 +1480,77 @@ $self.zones=[$recv($globals.Dictionary)._new()
 ,$ctx1.sendIdx["new"]=2
 //>>excludeEnd("ctx");
 ][0];
-$1=$self.zones;
-$2=[$recv($globals.TFZone)._new()
+[$recv($self.zones)._at_put_("jaune",[$recv($globals.TFZoneJaune)._new()
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 ,$ctx1.sendIdx["new"]=3
-//>>excludeEnd("ctx");
-][0];
-[$recv($2)._nbCoches_((16))
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-,$ctx1.sendIdx["nbCoches:"]=1
-//>>excludeEnd("ctx");
-][0];
-[$recv($2)._carre_(true)
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-,$ctx1.sendIdx["carre:"]=1
-//>>excludeEnd("ctx");
-][0];
-[$recv($1)._at_put_("jaune",[$recv($2)._nombre_(false)
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-,$ctx1.sendIdx["nombre:"]=1
 //>>excludeEnd("ctx");
 ][0])
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 ,$ctx1.sendIdx["at:put:"]=1
 //>>excludeEnd("ctx");
 ][0];
-$3=$self.zones;
-$4=[$recv($globals.TFZone)._new()
+[$recv($self.zones)._at_put_("bleu",[$recv($globals.TFZoneBleu)._new()
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 ,$ctx1.sendIdx["new"]=4
-//>>excludeEnd("ctx");
-][0];
-[$recv($4)._nbCoches_((12))
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-,$ctx1.sendIdx["nbCoches:"]=2
-//>>excludeEnd("ctx");
-][0];
-[$recv($4)._carre_(true)
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-,$ctx1.sendIdx["carre:"]=2
-//>>excludeEnd("ctx");
-][0];
-[$recv($3)._at_put_("bleu",[$recv($4)._nombre_(false)
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-,$ctx1.sendIdx["nombre:"]=2
 //>>excludeEnd("ctx");
 ][0])
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 ,$ctx1.sendIdx["at:put:"]=2
 //>>excludeEnd("ctx");
 ][0];
-$5=$self.zones;
-$6=[$recv($globals.TFZone)._new()
+[$recv($self.zones)._at_put_("vert",[$recv($globals.TFZoneVert)._new()
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 ,$ctx1.sendIdx["new"]=5
-//>>excludeEnd("ctx");
-][0];
-[$recv($6)._nbCoches_((11))
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-,$ctx1.sendIdx["nbCoches:"]=3
-//>>excludeEnd("ctx");
-][0];
-[$recv($6)._carre_(false)
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-,$ctx1.sendIdx["carre:"]=3
-//>>excludeEnd("ctx");
-][0];
-[$recv($5)._at_put_("vert",[$recv($6)._nombre_(false)
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-,$ctx1.sendIdx["nombre:"]=3
 //>>excludeEnd("ctx");
 ][0])
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 ,$ctx1.sendIdx["at:put:"]=3
 //>>excludeEnd("ctx");
 ][0];
-$7=$self.zones;
-$8=[$recv($globals.TFZone)._new()
+[$recv($self.zones)._at_put_("orange",[$recv($globals.TFZoneOrange)._new()
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 ,$ctx1.sendIdx["new"]=6
-//>>excludeEnd("ctx");
-][0];
-[$recv($8)._nbCoches_((11))
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-,$ctx1.sendIdx["nbCoches:"]=4
-//>>excludeEnd("ctx");
-][0];
-[$recv($8)._carre_(false)
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-,$ctx1.sendIdx["carre:"]=4
-//>>excludeEnd("ctx");
-][0];
-[$recv($7)._at_put_("orange",[$recv($8)._nombre_(true)
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-,$ctx1.sendIdx["nombre:"]=4
 //>>excludeEnd("ctx");
 ][0])
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 ,$ctx1.sendIdx["at:put:"]=4
 //>>excludeEnd("ctx");
 ][0];
-$9=$self.zones;
-$10=$recv($globals.TFZone)._new();
-$recv($10)._nbCoches_((11));
-$recv($10)._carre_(false);
-$recv($9)._at_put_("violet",$recv($10)._nombre_(true));
+$recv($self.zones)._at_put_("violet",$recv($globals.TFZoneViolet)._new());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"initialize",{})});
+//>>excludeEnd("ctx");
+}; }),
+$globals.TFFeuille);
+
+$core.addMethod(
+$core.method({
+selector: "score",
+protocol: "initialization",
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "score\x0a\x09^ zones inject: 0 into: [ :somme :zone |\x0a\x09\x09somme + zone score\x0a\x09\x09]",
+referencedClasses: [],
+//>>excludeEnd("ide");
+pragmas: [],
+messageSends: ["inject:into:", "+", "score"]
+}, function ($methodClass){ return function (){
+var self=this,$self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+return $recv($self.zones)._inject_into_((0),(function(somme,zone){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+return $recv(somme).__plus($recv(zone)._score());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({somme:somme,zone:zone},$ctx1,1)});
+//>>excludeEnd("ctx");
+}));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"score",{})});
 //>>excludeEnd("ctx");
 }; }),
 $globals.TFFeuille);
@@ -1413,15 +1781,21 @@ selector: "start",
 protocol: "as yet unclassified",
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "start",
-referencedClasses: [],
+source: "start\x0a\x09TresFute new start",
+referencedClasses: ["TresFute"],
 //>>excludeEnd("ide");
 pragmas: [],
-messageSends: []
+messageSends: ["start", "new"]
 }, function ($methodClass){ return function (){
 var self=this,$self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$recv($recv($globals.TresFute)._new())._start();
 return self;
-
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"start",{})});
+//>>excludeEnd("ctx");
 }; }),
 $globals.TresFute.a$cls);
 

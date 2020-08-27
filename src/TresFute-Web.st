@@ -100,6 +100,7 @@ TFWElement subclass: #TFWJeu
 !TFWJeu methodsFor: 'as yet unclassified'!
 
 initialize
+	| ihmjeu ihmscores |
 	"le jeu"
 	jeu := TFJeu new.
 	"creation des elements"
@@ -107,9 +108,15 @@ initialize
 	plateau := TFWSetDes new: jeu plateau.
 	feuille := TFWFeuille new: jeu feuille.
 	"partie web"	
-	elt := '#jeu' asSilk.
+	elt := '#tresfute' asSilk.
 	elt resetContents.
-	elt << des << feuille << plateau.
+	
+	ihmjeu := (elt DIV: { 'class'->'jeu'}).
+	ihmjeu << des << feuille << plateau.
+	
+	ihmscores := TFWScores new: jeu feuille.
+	elt << ihmscores.
+	
 	"gestion des evenements"
 	des annonceur on: TFWDe do: [ :evt |
 		jeu choisitDe: (evt de)
@@ -117,6 +124,54 @@ initialize
 	feuille annonceur on: TFWEvtCoche do: [ :evt |
 		jeu choisit: evt type en: evt numero
 		]
+! !
+
+TFWElement subclass: #TFWScores
+	slots: {#feuille. #total}
+	package: 'TresFute-Web'!
+
+!TFWScores methodsFor: 'as yet unclassified'!
+
+actualise: div avec: zone
+	div resetContents.
+	div << zone score asString.
+	self actualiseTotal
+!
+
+actualiseTotal
+	total ifNil: [ ^ self ].
+	total resetContents.
+	total << feuille score asString
+!
+
+feuille: uneFeuille
+	feuille := uneFeuille
+!
+
+renderOnSilk: aSilk
+	self divOn: aSilk with: 'scores'.
+	#(#jaune #bleu #vert #orange #violet #renard #total) do: [ :zone |
+		self zone: zone
+		].
+	self actualiseTotal
+!
+
+zone: couleur
+	| div zone |
+	div := elt DIV: { 'class'->('score ',couleur) }.
+	couleur=#renard ifTrue: [ ^ self ].
+	couleur=#total ifTrue: [ total := div. ^ self ].
+	zone := (feuille zone: couleur).
+	zone annonceur on: TFZone do: [ :evt | self actualise: div avec: zone ].
+	self actualise: div avec: zone
+! !
+
+!TFWScores class methodsFor: 'as yet unclassified'!
+
+new: feuille
+	^ TFWScores new
+		feuille: feuille;
+		yourself
 ! !
 
 TFWElement subclass: #TFWSetDes
